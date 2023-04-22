@@ -1,0 +1,1 @@
+{"version":1,"defects":{"UrlControllerTest::testShouldReturn400IfNoUrlIsProvided":3,"Warning":6},"times":{"UrlControllerTest::testShouldReturn400IfNoUrlIsProvided":0.013,"Warning":0.01}}
