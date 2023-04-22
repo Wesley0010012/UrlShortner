@@ -10,7 +10,11 @@ use \Src\Presentation\Protocols\UrlController as ProtocolsUrlController;
 
 class UrlController implements ProtocolsUrlController {
   public function index(HttpRequest $request): HttpResponse {
-    if(!$request->body['url'])
-      return HttpHelpers::badRequest(new MissingParamError('url'));
+    $params = array('email', 'url');
+
+    foreach($params as $param) {
+      if(!$request->body[$param])
+        return HttpHelpers::badRequest(new MissingParamError($param));
+    }
   }
 }
