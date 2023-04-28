@@ -1,16 +1,27 @@
 <?php
 
 use \PHPUnit\Framework\TestCase;
-use \Src\Presentation\Controllers\UrlController;
+use \Src\Presentation\Controllers\UrlController\UrlController;
+use Src\Presentation\Errors\InvalidParamError;
 use Src\Presentation\Errors\MissingParamError;
+use Src\Presentation\Protocols\EmailValidator;
 use Src\Presentation\Protocols\HttpRequest;
 use \Src\Presentation\Protocols\UrlController as UrlControllerProtocol;
 
+
+class EmailValidatorStub implements EmailValidator {
+  public function isValid(string $email): bool {
+    return true;
+  }
+}
+
 class UrlControllerTest extends TestCase {
-  public UrlControllerProtocol $sut;
+  private UrlControllerProtocol $sut;
+  private EmailValidator $emailValidator;
 
   public function setUp(): void {
-    $this->sut = new UrlController;
+    $this->emailValidator = new EmailValidatorStub;
+    $this->sut = new UrlController($this->emailValidator);
   }
 
   public function testShouldReturn400IfNoUrlIsProvided(): void {
@@ -32,6 +43,19 @@ class UrlControllerTest extends TestCase {
     $request->body = array(
       "url" => "http://url.com",
       "email" => ""
+    );
+    $response = $this->sut->index($request);
+
+    $this->assertEquals(400, $response->statusCode);
+    $this->assertEquals($error->getMessage(), $response->body->getMessage());
+  }
+
+  public function shouldReturn400IfInvalidEmailIsProvided(): void {
+    $error = new InvalidParamError('email');
+    $request = new HttpRequest;
+    $request->body = array(
+      "url" => "http://url.com",
+      "email" => "fakeemail@email.com"
     );
     $response = $this->sut->index($request);
 

@@ -2,7 +2,7 @@
 
 namespace Src\Presentation\Helpers;
 
-use Src\Presentation\Errors\MissingParamError;
+use Error;
 use Src\Presentation\Protocols\HttpResponse;
 
 class HttpHelpers {
@@ -12,7 +12,7 @@ class HttpHelpers {
     self::$response = new HttpResponse;
   }
 
-  public static function badRequest(MissingParamError $error): HttpResponse {
+  public static function badRequest(Error $error): HttpResponse {
     self::generator();
 
     self::$response->statusCode = 400;
