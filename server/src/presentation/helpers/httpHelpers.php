@@ -20,4 +20,13 @@ class HttpHelpers {
 
     return self::$response;
   }
+
+  public static function success($message): HttpResponse {
+    self::generator();
+
+    self::$response->statusCode = 200;
+    self::$response->body = $message;
+
+    return self::$response;
+  }
 }

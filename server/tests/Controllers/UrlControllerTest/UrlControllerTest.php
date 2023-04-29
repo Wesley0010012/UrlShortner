@@ -4,7 +4,7 @@ use \PHPUnit\Framework\TestCase;
 use \Src\Presentation\Controllers\UrlController\UrlController;
 use Src\Presentation\Errors\InvalidParamError;
 use Src\Presentation\Errors\MissingParamError;
-use Src\Presentation\Protocols\EmailValidator;
+use Src\Validation\Protocols\EmailValidator;
 use Src\Presentation\Protocols\HttpRequest;
 use \Src\Presentation\Protocols\UrlController as UrlControllerProtocol;
 
@@ -69,8 +69,17 @@ class UrlControllerTest extends TestCase {
     $this->assertEquals($error->getMessage(), $response->body->getMessage());
   }
 
-  public function testShouldReturn200IfEmailAndUrlIsCorrectlyProvided(): void {
+  public function testShouldReturn200IfAllIsCorrectlyProvided(): void {
     $this->emailValidator = new EmailValidatorStub;
     $this->sut = new UrlController($this->emailValidator);
+
+    $request = new HttpRequest;
+    $request->body = array(
+      'url' => "http://url.com",
+      'email' => "email@email.com"
+    );
+
+    $response = $this->sut->index($request);
+    $this->assertEquals(200, $response->statusCode);
   }
 }

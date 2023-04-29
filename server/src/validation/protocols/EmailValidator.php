@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Presentation\Protocols;
+namespace Src\Validation\Protocols;
 
 interface EmailValidator {
   public function isValid(string $email): bool;

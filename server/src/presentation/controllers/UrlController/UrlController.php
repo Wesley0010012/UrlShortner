@@ -5,7 +5,7 @@ namespace Src\Presentation\Controllers\UrlController;
 use Src\Presentation\Errors\InvalidParamError;
 use Src\Presentation\Errors\MissingParamError;
 use Src\Presentation\Helpers\HttpHelpers;
-use Src\Presentation\Protocols\EmailValidator as ProtocolsEmailValidator;
+use Src\Validation\Protocols\EmailValidator as ProtocolsEmailValidator;
 use Src\Presentation\Protocols\HttpRequest;
 use Src\Presentation\Protocols\HttpResponse;
 use Src\Presentation\Protocols\UrlController as ProtocolsUrlController;
@@ -27,5 +27,7 @@ class UrlController implements ProtocolsUrlController {
 
     if(!$this->emailValidator->isValid($request->body['email']))
       return HttpHelpers::badRequest(new InvalidParamError('email'));
+
+    return HttpHelpers::success("OK!");
   }
 }
