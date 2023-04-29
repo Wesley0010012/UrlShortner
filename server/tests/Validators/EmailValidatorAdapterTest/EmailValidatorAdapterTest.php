@@ -14,6 +14,12 @@ class EmailValidatorAdapterTest extends TestCase {
   }
 
   public function testShouldReturnFalseIfNoEmailIsProvided(): void {
+    $result = $this->emailValidator->isValid("");
+
+    $this->assertEquals(false, $result);
+  }
+
+  public function testShouldReturnFalseIfFakeEmailIsProvided(): void {
     $result = $this->emailValidator->isValid("fake_email");
 
     $this->assertEquals(false, $result);

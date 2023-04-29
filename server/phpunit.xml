@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit bootstrap="vendor/autoload.php" colors="true" stopOnFailure="false">
   <testsuites>
-    <testsuite name="General">
-      <directory>tests</directory>
+    <testsuite name="Controller">
+      <directory>tests/Controllers</directory>
+    </testsuite>
+    <testsuite name="Validators">
+      <directory>tests/Validators</directory>
     </testsuite>
   </testsuites>
 </phpunit>
