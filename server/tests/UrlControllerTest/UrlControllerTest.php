@@ -15,12 +15,18 @@ class EmailValidatorStub implements EmailValidator {
   }
 }
 
+class FakeEmailValidatorStub extends EmailValidatorStub {
+  public function isValid(string $email): bool {
+    return false;
+  }
+}
+
 class UrlControllerTest extends TestCase {
   private UrlControllerProtocol $sut;
   private EmailValidator $emailValidator;
 
   public function setUp(): void {
-    $this->emailValidator = new EmailValidatorStub;
+    $this->emailValidator = new FakeEmailValidatorStub();
     $this->sut = new UrlController($this->emailValidator);
   }
 
@@ -50,7 +56,7 @@ class UrlControllerTest extends TestCase {
     $this->assertEquals($error->getMessage(), $response->body->getMessage());
   }
 
-  public function shouldReturn400IfInvalidEmailIsProvided(): void {
+  public function testShouldReturn400IfInvalidEmailIsProvided(): void {
     $error = new InvalidParamError('email');
     $request = new HttpRequest;
     $request->body = array(
@@ -61,5 +67,10 @@ class UrlControllerTest extends TestCase {
 
     $this->assertEquals(400, $response->statusCode);
     $this->assertEquals($error->getMessage(), $response->body->getMessage());
+  }
+
+  public function testShouldReturn200IfEmailAndUrlIsCorrectlyProvided(): void {
+    $this->emailValidator = new EmailValidatorStub;
+    $this->sut = new UrlController($this->emailValidator);
   }
 }

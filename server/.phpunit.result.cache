@@ -1,1 +1,0 @@
-{"version":1,"defects":{"UrlControllerTest::testShouldReturn400IfNoUrlIsProvided":4,"Warning":6,"UrlControllerTest::testShouldReturn400IfNoUrlEmailIsProvided":4},"times":{"UrlControllerTest::testShouldReturn400IfNoUrlIsProvided":0.045,"Warning":0.01,"UrlControllerTest::testShouldReturn400IfNoUrlEmailIsProvided":0}}
