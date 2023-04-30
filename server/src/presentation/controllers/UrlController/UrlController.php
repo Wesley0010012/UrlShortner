@@ -2,6 +2,7 @@
 
 namespace Src\Presentation\Controllers\UrlController;
 
+use Src\Data\Cryptography\Encrypter as EncrypterProtocol;
 use Src\Presentation\Errors\InvalidParamError;
 use Src\Presentation\Errors\MissingParamError;
 use Src\Presentation\Helpers\HttpHelpers;
@@ -12,9 +13,9 @@ use Src\Presentation\Protocols\UrlController as ProtocolsUrlController;
 
 class UrlController implements ProtocolsUrlController {
   private readonly ProtocolsEmailValidator $emailValidator;
+  private readonly EncrypterProtocol $encrypter;
   
-  public function __construct(ProtocolsEmailValidator $emailValidator)
-  {
+  public function __construct(ProtocolsEmailValidator $emailValidator) {
     $this->emailValidator = $emailValidator;
   }
 

@@ -1,32 +1,23 @@
 <?php
 
+namespace Tests\Controllers\UrlControllerTest;
+
 use \PHPUnit\Framework\TestCase;
 use \Src\Presentation\Controllers\UrlController\UrlController;
-use Src\Presentation\Errors\InvalidParamError;
-use Src\Presentation\Errors\MissingParamError;
-use Src\Validation\Protocols\EmailValidator;
-use Src\Presentation\Protocols\HttpRequest;
+use \Src\Presentation\Errors\InvalidParamError;
+use \Src\Presentation\Errors\MissingParamError;
+use \Src\Validation\Protocols\EmailValidator;
+use \Src\Presentation\Protocols\HttpRequest;
 use \Src\Presentation\Protocols\UrlController as UrlControllerProtocol;
-
-
-class EmailValidatorStub implements EmailValidator {
-  public function isValid(string $email): bool {
-    return true;
-  }
-}
-
-class FakeEmailValidatorStub extends EmailValidatorStub {
-  public function isValid(string $email): bool {
-    return false;
-  }
-}
+use \Tests\Stubs\EmailValidatorStubs\FakeEmailValidatorStub;
+use \Tests\Stubs\EmailValidatorStubs\EmailValidatorStub;
 
 class UrlControllerTest extends TestCase {
   private UrlControllerProtocol $sut;
   private EmailValidator $emailValidator;
 
   public function setUp(): void {
-    $this->emailValidator = new FakeEmailValidatorStub();
+    $this->emailValidator = new FakeEmailValidatorStub;
     $this->sut = new UrlController($this->emailValidator);
   }
 

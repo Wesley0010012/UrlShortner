@@ -6,6 +6,7 @@ use \Src\Data\Cryptography\Encrypter;
 
 class EncryptorAdapter implements Encrypter {
   public function encrypt(string $plaintext): string {
-    return "";
+    $result = uniqid($plaintext);
+    return $result;
   }
 }

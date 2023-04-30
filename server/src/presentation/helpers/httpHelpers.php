@@ -21,7 +21,7 @@ class HttpHelpers {
     return self::$response;
   }
 
-  public static function success($message): HttpResponse {
+  public static function success(mixed $message): HttpResponse {
     self::generator();
 
     self::$response->statusCode = 200;
