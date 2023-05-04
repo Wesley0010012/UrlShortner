@@ -7,5 +7,8 @@
     <testsuite name="Validators">
       <directory>tests/Validators</directory>
     </testsuite>
+    <testsuite name="Encrypters">
+      <directory>tests/Encryption</directory>
+    </testsuite>
   </testsuites>
 </phpunit>

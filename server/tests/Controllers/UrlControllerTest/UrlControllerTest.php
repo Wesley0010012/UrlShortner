@@ -17,11 +17,21 @@ class UrlControllerTest extends TestCase {
   private EmailValidator $emailValidator;
 
   public function setUp(): void {
+    $this->fakeFactory();
+  }
+
+  public function fakeFactory(): void {
     $this->emailValidator = new FakeEmailValidatorStub;
     $this->sut = new UrlController($this->emailValidator);
   }
 
+  public function realFactory(): void {
+    $this->emailValidator = new EmailValidatorStub;
+    $this->sut = new UrlController($this->emailValidator);
+  }
+
   public function testShouldReturn400IfNoUrlIsProvided(): void {
+    $this->fakeFactory();
     $error = new MissingParamError("url");
     $request = new HttpRequest;
     $request->body = array(
@@ -61,9 +71,8 @@ class UrlControllerTest extends TestCase {
   }
 
   public function testShouldReturn200IfAllIsCorrectlyProvided(): void {
-    $this->emailValidator = new EmailValidatorStub;
-    $this->sut = new UrlController($this->emailValidator);
-
+    $this->realFactory();
+    
     $request = new HttpRequest;
     $request->body = array(
       'url' => "http://url.com",

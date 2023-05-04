@@ -2,7 +2,7 @@
 
 namespace Src\Presentation\Controllers\UrlController;
 
-use Src\Data\Cryptography\Encrypter as EncrypterProtocol;
+use Src\Data\Protocols\Cryptography\Encrypter as EncrypterProtocol;
 use Src\Presentation\Errors\InvalidParamError;
 use Src\Presentation\Errors\MissingParamError;
 use Src\Presentation\Helpers\HttpHelpers;
